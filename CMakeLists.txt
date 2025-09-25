@@ -3,13 +3,13 @@ project(ros2_orb_slam3)
 
 # Make sure to set this path before building the  
 # set(ENV{PYTHONPATH} "/opt/ros/humble/lib/python3.10/site-packages/") # Must be set to match your installation
-
+cmake_policy(SET CMP0074 NEW)
 # Enforce use of C++17
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -O3")
 
-LIST(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake_modules) # REDUNDANT?
+# LIST(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake_modules) # REDUNDANT?
 
 # find dependencies
 find_package(Python3 REQUIRED)
@@ -21,10 +21,15 @@ find_package(std_msgs REQUIRED)
 find_package(sensor_msgs REQUIRED)
 # find_package(your_custom_msg_interface REQUIRED)
 find_package(cv_bridge REQUIRED)
-find_package(OpenCV 4.6 REQUIRED) # In Ubuntu 24.04 4.6 or greater is required
-find_package(Eigen3 3.3.0 REQUIRED) # Matched with Sophus
+find_package(OpenCV REQUIRED) # In Ubuntu 24.04 4.6 or greater is required
+find_package(Eigen3 REQUIRED) # Matched with Sophus
 find_package(Pangolin REQUIRED)
 find_package(image_transport REQUIRED)
+
+# Link utilities for external dependencies
+find_package(CURL REQUIRED)
+find_package(OpenSSL REQUIRED)
+find_package(HDF5 REQUIRED COMPONENTS C)
 
 
 # Header file locations [C++ node]
@@ -139,6 +144,9 @@ target_link_libraries(orb_slam3_lib
   -lboost_system
   -lboost_serialization
   -lcrypto 
+  ${CURL_LIBRARIES}
+  OpenSSL::SSL
+  ${HDF5_LIBRARIES}
 )
 
 

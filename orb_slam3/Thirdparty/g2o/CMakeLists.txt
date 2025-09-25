@@ -25,6 +25,14 @@ SET(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${g2o_LIBRARY_OUTPUT_DIRECTORY})
 # look for SuiteSparse, QGLViewer, and Eigen3.
 LIST(APPEND CMAKE_MODULE_PATH ${g2o_SOURCE_DIR}/cmake_modules)
 
+# Find Eigen3 and set include path
+find_package(Eigen3 3.3 REQUIRED)
+set(G2O_EIGEN3_INCLUDE ${EIGEN3_INCLUDE_DIR})
+
+# Set search directory for looking for our custom CMake scripts to
+# look for SuiteSparse, QGLViewer, and Eigen3.
+LIST(APPEND CMAKE_MODULE_PATH ${g2o_SOURCE_DIR}/cmake_modules)
+
 # Detect OS and define macros appropriately
 IF(UNIX)
   ADD_DEFINITIONS(-DUNIX)

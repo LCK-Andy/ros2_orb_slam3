@@ -21,9 +21,9 @@ MonocularMode::MonocularMode() :Node("mono_node_cpp")
     
     //* Find path to home directory
     homeDir = getenv("HOME");
-    packagePath = "ros2_ws/src/ros2_orb_slam3/"; // !HARDCODED, change it as necessary
+    packagePath = "Documents/MainDaemon/src/ros2_orb_slam3/"; // !HARDCODED, change it as necessary
     // std::cout<<"Home: "<<homeDir<<std::endl;
-    
+
     // std::cout<<"VLSAM NODE STARTED\n\n";
     RCLCPP_INFO(this->get_logger(), "\nORB-SLAM3-V1 NODE STARTED");
 
